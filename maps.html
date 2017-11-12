@@ -20,6 +20,8 @@
   </head>
   <body>
     <div id="maps"></div>
+    <div id="distance"></div>
+    <div id="result"></div>
     <div id="map"></div>
     <script>
       // Note: This example requires that you consent to location sharing when
@@ -40,6 +42,7 @@
       [18.561963,73.9147376], // phoenix
       [18.5455801,73.9042863], // carnival
       ];
+      var posNames =["hsbc","herms","phoenix","carnival"];
         // Try HTML5 geolocation.
         if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
@@ -48,10 +51,10 @@
               lng: position.coords.longitude
             };
             document.getElementById('maps').innerHTML = "Lat:"+pos.lat+"Lng = " +pos.lng;
-             infoWindow.setPosition(pos);
-             infoWindow.setContent('Location found.');
-             infoWindow.open(map);
-            map.setCenter(pos);
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Location found.');
+            infoWindow.open(map);
+           map.setCenter(pos);
 
             url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=si&origins="+pos.lat+","+pos.lng+"&destinations=";
             for (i in positions)
@@ -65,7 +68,20 @@
 
           xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-              console.log(this.responseText);
+              resJson = JSON.parse(this.responseText);
+              rows = resJson.rows[0].elements;
+              html = "<table><th>Current Location</th><th></th><th>Destinations</th><th></th><th>Distance</th>"
+              distances = [];
+              for (var i = 0;i<rows.length; i++) {
+                html = html+"<tr><td>"+pos.lat+","+pos.lng+"</td><td></td><td>"+ posNames[i] 
+                +"("+positions[i][0]+","+positions[i][1]+")</td><td></td><td>"+rows[i].distance.text+"</td></tr>";
+                distances.push(parseFloat(rows[i].distance.text))
+              }
+              html = html +"</table>";
+              console.log();
+              document.getElementById('result').innerHTML = "Nearest is "+ distances.sort(function(a,b) { return a - b;})[0]+" which is " + posNames[3];
+              document.getElementById('distance').innerHTML = html;
+
             }
           });
 
