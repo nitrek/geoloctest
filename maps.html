@@ -60,17 +60,19 @@
             }
             url = url.substr(0,url.length-1);
             url = url + "&key=AIzaSyDHM_UTjNpf2JqRE7-JCcQGUBBmlBYl530";
-            var xhr = new XMLHttpRequest();
-            xhr.crossdomain = true;
+             var xhr = new XMLHttpRequest();
+            xhr.withCredentials = true;
 
-
-          xhr.addEventListener("readystatechange", function() {
+          xhr.addEventListener("readystatechange", function () {
             if (this.readyState === 4) {
-                console.log(this.responseText['rows'][0].distance.text,positions[0]);
-                
-        }});
-        xhr.open("GET",url);
-        xhr.send();
+              console.log(this.responseText);
+            }
+          });
+
+          xhr.open("GET", url);
+          xhr.setRequestHeader("cache-control", "no-cache");
+          xhr.setRequestHeader("contentType", "application/json");
+          xhr.send();
 
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
