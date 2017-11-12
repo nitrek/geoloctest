@@ -66,7 +66,7 @@
 
           xhr.addEventListener("readystatechange", function() {
             if (this.readyState === 4) {
-                console.log(this.responseText);
+                console.log(this.responseText['rows'][0].distance.text,positions[0]);
                 
         }});
         xhr.open("GET",url);
