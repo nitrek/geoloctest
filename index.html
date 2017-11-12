@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="canonical" href="https://nitrek.github.io/UberStats/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maps Distance</title>
+    <link rel="stylesheet" type="text/css" href="styles/inline.css">
+    <!-- TODO add manifest here -->
+    <link rel="manifest" href="/manifest.json">
+    <!-- Add to home screen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="UBERStats">
+    <link rel="apple-touch-icon" href="images/icons/icon-152x152.png">
+    <meta name="msapplication-TileImage" content="images/icons/icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#2F3BA2">
+</head>
+
+<body>
+    <div id="googlemaps"></div>
+    <header class="header">
+        <h1 class="header__title">UBER Stats</h1>
+        <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
+        <div class="mdl-button--primary mdl-ripple"  onclick="window.open('https://login.uber.com/oauth/v2/authorize?client_id=2oERX8EsijyRt8AlF8pZpCfEMFKIwM8p&response_type=code','_self')">
+            LOGIN
+            <paper-ripple fit></paper-ripple>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="card cardTemplate stats-card" hidden>
+            <div class="city-key" hidden></div>
+            <div class="card-last-updated" hidden></div>
+            <div class="location"></div>
+            <div class="date"></div>
+            <div class="description"></div>
+            <div class="current">
+
+                <div class="description">
+                    <div class="distance">
+                    </div>
+                    <div class="rideTime"></div>
+                    <div class="numRides"></div>
+                    <div class="WaitTime"></div>
+                    <div class="numCities"></div>
+                    <div class="avgwaittime"></div>
+                    <div class="avgridetime"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div class="loader">
+        <!-- <svg viewBox="0 0 32 32" width="32" height="32">
+      <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
+    </svg> -->
+        <!--<img id="spinner" src="images/loader-t.gif" /> -->
+    </div>
+    <script src="scripts/app.js"></script>
+    <!-- Uncomment the line below when ready to test with fake data -->
+    <!-- async defer  -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDHM_UTjNpf2JqRE7-JCcQGUBBmlBYl530">
+    </script>
+    <script src="scripts/maps.js" async defer></script>
+    <script>
+        (function(i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function() {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+        ga('create', 'UA-97230208-1', 'auto');
+        ga('send', 'pageview');
+    </script>
+</body>
+
+</html>
